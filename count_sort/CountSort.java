@@ -40,4 +40,33 @@ public class CountSort{
             j++;
         }
     }
+
+    public static void sortHashMap(int[] arr){
+        if(arr.length == 0){
+            return;
+        }
+
+        int min = Arrays.stream(arr).min().getAsInt();
+        int max = Arrays.stream(arr).max().getAsInt();
+
+        Map<Integer, Integer> freqMap = new HashMap<>();
+
+        for(int num: arr){
+            freqMap.put(num, freqMap.getOrDefault(num, 0) + 1);
+        }
+
+        int k=0;
+
+        // updating the original array in sorted form
+        for(int i=min; i<=max; i++){
+            if(k>=arr.length){
+                break;
+            }
+            while(freqMap.getOrDefault(i, 0) != 0){
+                arr[k] = i;
+                k++;
+                freqMap.put(i, freqMap.getOrDefault(i, 0) - 1);
+            }
+        }
+    }
 }
